@@ -64,11 +64,30 @@
     - text: 유의 사항
       url: sql-pyspark-pandas-with-arrow.html#usage-notes
 - text: 참조
-  url: sql-reference.html
+  url: sql-ref.html
   subitems:
+    - text: ANSI Compliance
+      url: sql-ref-ansi-compliance.html
     - text: 데이터 타입
-      url: sql-reference.html#data-types
-    - text: NaN 의미 구조
-      url: sql-reference.html#nan-semantics
-    - text: 산술 연산
-      url: sql-reference.html#arithmetic-operations
+      url: sql-ref-datatypes.html
+    - text: Datetime Pattern
+      url: sql-ref-datetime-pattern.html
+    - text: Functions
+      url: sql-ref-functions.html
+    - text: Identifiers
+      url: sql-ref-identifier.html
+    - text: Literals
+      url: sql-ref-literals.html
+    - text: Null Semantics
+      url: sql-ref-null-semantics.html
+    - text: SQL Syntax
+      url: sql-ref-syntax.html
+      subitems:
+        - text: Data Definition Statements
+          url: sql-ref-syntax.html#ddl-statements
+        - text: Data Manipulation Statements
+          url: sql-ref-syntax.html#dml-statements
+        - text: Data Retrieval(Queries)
+          url: sql-ref-syntax.html#data-retrieval-statements
+        - text: Auxiliary Statements
+          url: sql-ref-syntax.html#auxiliary-statements

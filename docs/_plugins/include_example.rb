@@ -16,7 +16,7 @@
 #
 
 require 'liquid'
-require 'pygments'
+require 'rouge'
 
 module Jekyll
   class IncludeExampleTag < Liquid::Tag
@@ -54,19 +54,22 @@ module Jekyll
         puts(e.backtrace)
         exit 1
       end
-      code = select_lines(code)
+      code = select_lines(code).strip
 
-      rendered_code = Pygments.highlight(code, :lexer => @lang)
+      formatter = Rouge::Formatters::HTMLPygments.new(Rouge::Formatters::HTML.new)
+      lexer = Rouge::Lexer.find(@lang)
+      rendered_code = formatter.format(lexer.lex(code))
 
-      hint = "<div><small>스파크 저장소의 \"examples/src/main/#{snippet_file}\"에서 전체 예제 코드를 볼 수 있습니다.</small></div>"
+      hint = "<div><small>Find full example code at " \
+        "\"examples/src/main/#{snippet_file}\" in the Spark repo.</small></div>"
 
       rendered_code + hint
     end
 
-    # Trim the code block so as to have the same indention, regardless of their positions in the
+    # Trim the code block so as to have the same indentation, regardless of their positions in the
     # code file.
     def trim_codeblock(lines)
-      # Select the minimum indention of the current code block.
+      # Select the minimum indentation of the current code block.
       min_start_spaces = lines
         .select { |l| l.strip.size !=0 }
         .map { |l| l[/\A */].size }

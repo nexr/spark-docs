@@ -35,10 +35,10 @@ When `spark.sql.storeAssignmentPolicy` is set to `ANSI`, Spark SQL complies with
 
 The following subsections present behaviour changes in arithmetic operations, type conversions, and SQL parsing when the ANSI mode enabled. For type conversions in Spark SQL, there are three kinds of them and this article will introduce them one by one: cast, store assignment and type coercion. 
 
-### Arithmetic Operations
+### 산술 연산
 
-In Spark SQL, arithmetic operations performed on numeric types (with the exception of decimal) are not checked for overflows by default.
-This means that in case an operation causes overflows, the result is the same with the corresponding operation in a Java/Scala program (e.g., if the sum of 2 integers is higher than the maximum value representable, the result is a negative number).
+숫자 타입 (`decimal`제외) 연산 시 오버플로가 체크되지 않습니다. 
+이는 오버플로를 발생시키는 연산 시 그 결과값이 Java/Scala 프로그램에서 반환되는 연산 결과값과 같다는 것을 의미합니다. (예: 두 정수의 합이 표현할 수 있는 최댓값보다 크다면 결과값이 음수가 됩니다.)
 On the other hand, Spark SQL returns null for decimal overflows.
 When `spark.sql.ansi.enabled` is set to `true` and an overflow occurs in numeric and interval arithmetic operations, it throws an arithmetic exception at runtime.
 

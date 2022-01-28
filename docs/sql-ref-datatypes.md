@@ -21,29 +21,25 @@ license: |
 
 ### Supported Data Types
 
-Spark SQL and DataFrames support the following data types:
+스파크 SQL 과 DataFrame은 다음 데이터 타입을 지원합니다:
 
-* Numeric types
-  - `ByteType`: Represents 1-byte signed integer numbers.
-  The range of numbers is from `-128` to `127`.
-  - `ShortType`: Represents 2-byte signed integer numbers.
-  The range of numbers is from `-32768` to `32767`.
-  - `IntegerType`: Represents 4-byte signed integer numbers.
-  The range of numbers is from `-2147483648` to `2147483647`.
-  - `LongType`: Represents 8-byte signed integer numbers.
-  The range of numbers is from `-9223372036854775808` to `9223372036854775807`.
-  - `FloatType`: Represents 4-byte single-precision floating point numbers.
-  - `DoubleType`: Represents 8-byte double-precision floating point numbers.
-  - `DecimalType`: Represents arbitrary-precision signed decimal numbers. Backed internally by `java.math.BigDecimal`. A `BigDecimal` consists of an arbitrary precision integer unscaled value and a 32-bit integer scale.
-* String type
-  - `StringType`: Represents character string values.
+* 숫자 타입
+  - `ByteType`: 1 바이트 부호 있는(signed) 정수를 나타냅니다. 범위는 `-128` 부터 `127`까지 입니다.
+  - `ShortType`: 2 바이트 부호 있는(signed) 정수를 나타냅니다. 범위는 `-32768`부터 `32767`까지입니다.
+  - `IntegerType`: 4 바이트 부호 있는(signed) 정수를 나타냅니다. 범위는 `-2147483648`부터 `2147483647`까지 입니다.
+  - `LongType`: 8 바이트 부호 있는(signed) 정수를 나타냅니다. 범위는 `-9223372036854775808`부터 `9223372036854775807`입니다.
+  - `FloatType`: 4 바이트 단정밀도(single-precision) 부동 소수점수를 나타냅니다.
+  - `DoubleType`: 8 바이트 배정밀도(double-precision) 부동 소수점수를 나타냅니다.
+  - `DecimalType`: 임의정밀도(arbitrary-precision)의 부호 있는(signed) 소수를 나타냅니다. `java.math.BigDecimal`로 내부적으로 지원됩니다. `BigDecimal` 은 임의정밀도(arbitrary-precision)의 제한 없는(unscaled) 정수와 32비트의 제한 있는(scaled) 정수 스케일로 구성됩니다.
+* 문자열 타입
+  - `StringType`: 문자열 값을 나타냅니다.
   - `VarcharType(length)`: A variant of `StringType` which has a length limitation. Data writing will fail if the input string exceeds the length limitation. Note: this type can only be used in table schema, not functions/operators.
   - `CharType(length)`: A variant of `VarcharType(length)` which is fixed length. Reading column of type `CharType(n)` always returns string values of length `n`. Char type column comparison will pad the short one to the longer length.
-* Binary type
-  - `BinaryType`: Represents byte sequence values.
-* Boolean type
-  - `BooleanType`: Represents boolean values.
-* Datetime type
+* 이진 타입
+  - `BinaryType`: 바이트 시퀀스 값을 나타냅니다.
+* Boolean 타입
+  - `BooleanType`: boolean값을 나타냅니다.
+* 날짜시간 타입
   - `TimestampType`: Represents values comprising values of fields year, month, day,
   hour, minute, and second, with the session local time-zone. The timestamp value represents an
   absolute point in time.
@@ -87,27 +83,16 @@ Spark SQL and DataFrames support the following data types:
     |`DayTimeIntervalType(MINUTE, SECOND)`|INTERVAL MINUTE TO SECOND|`INTERVAL '1000:01.001' MINUTE TO SECOND`|
     |`DayTimeIntervalType(SECOND, SECOND)` or `DayTimeIntervalType(SECOND)`|INTERVAL SECOND|`INTERVAL '1000.000001' SECOND`|
 
-* Complex types
-  - `ArrayType(elementType, containsNull)`: Represents values comprising a sequence of
-  elements with the type of `elementType`. `containsNull` is used to indicate if
-  elements in a `ArrayType` value can have `null` values.
-  - `MapType(keyType, valueType, valueContainsNull)`:
-  Represents values comprising a set of key-value pairs. The data type of keys is
-  described by `keyType` and the data type of values is described by `valueType`.
-  For a `MapType` value, keys are not allowed to have `null` values. `valueContainsNull`
-  is used to indicate if values of a `MapType` value can have `null` values.
-  - `StructType(fields)`: Represents values with the structure described by
-  a sequence of `StructField`s (`fields`).
-    * `StructField(name, dataType, nullable)`: Represents a field in a `StructType`.
-    The name of a field is indicated by `name`. The data type of a field is indicated
-    by `dataType`. `nullable` is used to indicate if values of these fields can have
-    `null` values.
+* 복합 타입
+  - `ArrayType(elementType, containsNull)`: `elementType`의 요소 시퀀스로 구성된 값을 나타냅니다. `containsNull`은 `ArrayType`의 요소가 `null`값을 가질 수 있는지 여부를 나타내는데 사용됩니다.
+  - `MapType(keyType, valueType, valueContainsNull)`: 일련의 키-값 쌍으로 구성된 값을 나타냅니다. 키의 데이터 타입은 `keyType` 이고 값의 데이터 타입은 `valueType` 입니다. `MapType` 값에서 키는 `null`값을 가질 수 없습니다. `valueContainsNull` 은 `MapType` 이 `null` 값을 가질 수 있는지 여부를 나타내는 데 사용됩니다.
+  - `StructType(fields)`: `StructField` (`fields`)` `구조의 시퀀스를 가진 값을 나타냅니다. 
+    * `StructField(name, dataType, nullable)`: `StructType` 의 필드를 나타냅니다. 필드 이름은 `name`으로 지정됩니다. 필드의 데이터 타입은 `dataType`으로 지정됩니다. `nullable` 은 필드 값이 `null`값을 가질 수 있는지 여부를 나타내는 데 사용됩니다.
 
 <div class="codetabs">
 <div data-lang="scala"  markdown="1">
 
-All data types of Spark SQL are located in the package `org.apache.spark.sql.types`.
-You can access them by doing
+스파크 SQL의 모든 데이터 타입은 `org.apache.spark.sql.types` 패키지에 있습니다. 다음 코드를 통해 해당 데이터 타입에 접근할 수 있습니다.
 
 {% include_example data_types scala/org/apache/spark/examples/sql/SparkSQLExample.scala %}
 
@@ -131,7 +116,6 @@ You can access them by doing
 |**MapType**|scala.collection.Map|MapType(*keyType*, *valueType*, [*valueContainsNull]*)<br/>**Note:** The default value of *valueContainsNull* is true.|
 |**StructType**|org.apache.spark.sql.Row|StructType(*fields*)<br/>**Note:** *fields* is a Seq of StructFields. Also, two fields with the same name are not allowed.|
 |**StructField**|The value type in Scala of the data type of this field(For example, Int for a StructField with the data type IntegerType)|StructField(*name*, *dataType*, [*nullable*])<br/>**Note:** The default value of *nullable* is true.|
-
 </div>
 
 <div data-lang="java" markdown="1">
@@ -166,8 +150,7 @@ please use factory methods provided in
 
 <div data-lang="python"  markdown="1">
 
-All data types of Spark SQL are located in the package of `pyspark.sql.types`.
-You can access them by doing
+스파크 SQL의 모든 데이터 타입은 `pyspark.sql.types` 패키지에 있습니다. 다음 코드를 통해 해당 데이터 타입에 접근할 수 있습니다.
 {% highlight python %}
 from pyspark.sql.types import *
 {% endhighlight %}
@@ -272,16 +255,14 @@ There is special handling for positive and negative infinity. They have the foll
  * Positive infinity sorts lower than NaN and higher than any other values.
  * Negative infinity sorts lower than any other values.
 
-#### NaN Semantics
+#### NaN 의미 구조
 
-There is special handling for not-a-number (NaN) when dealing with `float` or `double` types that
-do not exactly match standard floating point semantics.
-Specifically:
+표준 부동 소수점 의미와 정확히 일치하지 않는 float 또는 double 타입을 처리 할 때 not-a-number (NaN)을 다루는 방법이 있습니다. 구체적으로는 다음과 같이 처리합니다.
 
- * NaN = NaN returns true.
- * In aggregations, all NaN values are grouped together.
- * NaN is treated as a normal value in join keys.
- * NaN values go last when in ascending order, larger than any other numeric value.
+- NaN = NaN은 true를 반환합니다.
+- 집계에서 모든 NaN값은 같은 그룹으로 묶입니다.
+- 조인 키에서 NaN은 일반 값으로 다뤄집니다.
+- 오름차순일 때, NaN 값은 가장 큰 숫자로서 제일 마지막에 위치합니다.
 
 #### Examples
 
